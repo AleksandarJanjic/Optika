@@ -1,4 +1,4 @@
-package com.Optika;
+package com.optika;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
