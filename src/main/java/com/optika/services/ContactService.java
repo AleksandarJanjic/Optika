@@ -16,4 +16,9 @@ public class ContactService implements ContactInterface {
     public void Save(Contact contact) {
         repository.save(contact);
     }
+
+    @Override
+    public Contact findById(int Id) {
+        return (Contact) repository.findById(Id);
+    }
 }

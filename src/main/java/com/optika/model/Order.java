@@ -1,14 +1,22 @@
 package com.optika.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
+import javax.persistence.Entity;
 import java.util.Date;
 
 @Entity
 @Table(name = "pregled")
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class Order {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_pregled")
     private int id;
 
@@ -17,6 +25,7 @@ public class Order {
     private Buyer buyer;
 
     @Column(name = "datum")
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
     @Temporal(TemporalType.DATE)
     private Date date;
 
@@ -60,8 +69,12 @@ public class Order {
     @Column(name = "hasaddition")
     private Boolean hasAddition;
 
-    @Column(name = "addition")
-    private String addition;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "addition")
+    private Diopter addition;
+
+    @Column(name = "deleted_flag")
+    private boolean isDeleted;
 
     public Order(){}
 
@@ -78,7 +91,7 @@ public class Order {
                  String frame,
                  String comment,
                  Boolean hasAddition,
-                 String addition
+                 Diopter addition
     ){
         this.buyer = buyer;
         this.date = date;
@@ -200,7 +213,7 @@ public class Order {
         this.comment = comment;
     }
 
-    public Boolean isHasAddition() {
+    public Boolean getHasAddition() {
         return hasAddition;
     }
 
@@ -208,11 +221,19 @@ public class Order {
         this.hasAddition = hasAddition;
     }
 
-    public String getAddition() {
+    public Diopter getAddition() {
         return addition;
     }
 
-    public void setAddition(String addition) {
+    public void setAddition(Diopter addition) {
         this.addition = addition;
+    }
+
+    public boolean getIsDeleted() {
+        return isDeleted;
+    }
+
+    public void setIsDeleted(boolean deleted) {
+        isDeleted = deleted;
     }
 }

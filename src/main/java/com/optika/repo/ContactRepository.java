@@ -9,4 +9,6 @@ public interface ContactRepository extends JpaRepository<Contact, Long> {
 
     @Override
     <S extends Contact> S save(S s);
+
+    Contact findById(int Id);
 }

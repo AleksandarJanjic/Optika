@@ -1,5 +1,6 @@
 package com.optika.rest;
 
+import com.optika.interfaces.BuyerInterface;
 import com.optika.interfaces.OrderInterface;
 import com.optika.model.Order;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,12 +20,15 @@ public class GetOrder {
     @Autowired
     OrderInterface orderInterface;
 
+    @Autowired
+    BuyerInterface buyerInterface;
+
     @GetMapping("/getOrderById")
     public HashMap<String, Order> getOrderById(
             @RequestParam("id") int id
     ){
         HashMap<String, Order> theResult = new HashMap<>();
-        List<Order> result = orderInterface.findById(id);
+        List<Order> result = orderInterface.findByBuyerOrderByDateDesc(buyerInterface.findById(id));
         for (Order o: result
              ) {
             StringBuilder sb = new StringBuilder();

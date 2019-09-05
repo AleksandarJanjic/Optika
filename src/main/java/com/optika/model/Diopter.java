@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class Diopter {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "iddioptrija")
     private int iddioptrija;
 

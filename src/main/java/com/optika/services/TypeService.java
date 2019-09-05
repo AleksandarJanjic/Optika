@@ -4,7 +4,9 @@ import com.optika.interfaces.TypeInterface;
 import com.optika.model.Type;
 import com.optika.repo.TypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class TypeService implements TypeInterface {
 
     @Autowired

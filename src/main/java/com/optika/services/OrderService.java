@@ -1,6 +1,7 @@
 package com.optika.services;
 
 import com.optika.interfaces.OrderInterface;
+import com.optika.model.Buyer;
 import com.optika.model.Order;
 import com.optika.repo.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +16,13 @@ public class OrderService implements OrderInterface {
     OrderRepository repository;
 
     @Override
-    public List<Order> findById(int id) {
-        return (List<Order>) repository.findById(id);
+    public Order findById(int id) {
+        return repository.findById(id);
+    }
+
+    @Override
+    public List<Order> findByBuyerOrderByDateDesc(Buyer buyer) {
+        return (List<Order>) repository.findByBuyerOrderByDateDesc(buyer);
     }
 
     @Override

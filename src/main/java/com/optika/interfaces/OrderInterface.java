@@ -1,12 +1,15 @@
 package com.optika.interfaces;
 
+import com.optika.model.Buyer;
 import com.optika.model.Order;
 
 import java.util.List;
 
 public interface OrderInterface {
 
-    List<Order> findById(int id);
+    Order findById(int id);
+
+    List<Order> findByBuyerOrderByDateDesc(Buyer buyer);
 
     void save(Order order);
 }

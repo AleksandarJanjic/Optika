@@ -1,41 +1,35 @@
 package com.optika.rest;
 
-import com.optika.model.Buyer;
 import com.optika.model.Contact;
-import com.optika.repo.BuyerRepository;
 import com.optika.repo.ContactRepository;
 import com.optika.utils.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/AddContact")
-public class AddContact {
+public class DeleteContact {
 
     @Autowired
     ContactRepository repository;
 
-    @Autowired
-    BuyerRepository buyerRepository;
-
-    @PostMapping
-    public String addContact(
-            @RequestParam("id") int id,
-            @RequestParam("phoneNum") String phoneNum
-    ){
-        Buyer buyer = buyerRepository.findById(id);
-        Contact contact = new Contact(phoneNum, buyer);
+    @PostMapping("/DeleteContact")
+    public String deleteContact(
+            @RequestParam("id") int id
+    ) {
+        Contact contact = repository.findById(id);
+        contact.setIsDeleted(true);
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = HibernateUtil.getSession();
         session.beginTransaction();
-        session.saveOrUpdate(contact);
+        Contact contactToUpdate = (Contact) session.merge(contact);
+        session.saveOrUpdate(contactToUpdate);
         session.getTransaction().commit();
         session.close();
-        return String.valueOf(buyer.getId());
+        System.out.println("Deleted contact");
+        return String.valueOf(id);
     }
 }

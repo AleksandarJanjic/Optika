@@ -13,7 +13,8 @@ public class AngleService implements AngleInterface {
     AngleRepository repository;
 
     @Override
-    public Angle findByAngle(int angle) {
+    public Angle findByAngle(Integer angle) {
+
         return (Angle) repository.findByAngle(angle);
     }
 }

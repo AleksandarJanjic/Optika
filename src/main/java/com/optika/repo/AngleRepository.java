@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AngleRepository extends JpaRepository<Angle, Long> {
 
-    Angle findByAngle(int angle);
+    Angle findByAngle(Integer angle);
 }

@@ -7,11 +7,11 @@ import javax.persistence.*;
 public class Angle {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idugao;
 
     @Column(name = "ugao")
-    private int angle;
+    private Integer angle;
 
     public int getIdugao() {
         return idugao;
@@ -21,11 +21,11 @@ public class Angle {
         this.idugao = idugao;
     }
 
-    public int getAngle() {
+    public Integer getAngle() {
         return angle;
     }
 
-    public void setAngle(int angle) {
+    public void setAngle(Integer angle) {
         this.angle = angle;
     }
 }

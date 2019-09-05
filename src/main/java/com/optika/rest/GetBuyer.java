@@ -2,6 +2,7 @@ package com.optika.rest;
 
 import com.optika.interfaces.BuyerInterface;
 import com.optika.model.Buyer;
+import com.optika.model.Contact;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,6 +46,13 @@ public class GetBuyer {
         System.out.println("Requesting user with id: " + id);
         Buyer buyer = new Buyer();
         System.out.println("GET Request: getBuyerById");
-        return buyer = buyerInterface.findById(id);
+        buyer = buyerInterface.findById(id);
+        if(!(buyer.getContacts() == null)) {
+            for (Contact c : buyer.getContacts()
+            ) {
+                System.out.println("Contact is deleted:" + c.getIsDeleted());
+            }
+        }
+        return buyer;
     }
 }

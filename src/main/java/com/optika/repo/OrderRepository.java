@@ -1,5 +1,6 @@
 package com.optika.repo;
 
+import com.optika.model.Buyer;
 import com.optika.model.Order;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.lang.Nullable;
@@ -11,7 +12,9 @@ import java.util.List;
 public interface OrderRepository extends JpaRepository<Order, Long> {
 
     @Nullable
-    List<Order> findById(@Nullable int id);
+    Order findById(@Nullable int id);
+
+    List<Order> findByBuyerOrderByDateDesc(Buyer buyer);
 
     @Override
     <S extends Order> S save(S s);
