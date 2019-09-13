@@ -54,7 +54,7 @@ public class Order {
     private Angle os_angle;
 
     @Column(name = "pd")
-    private double pd;
+    private String pd;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "tip")
@@ -86,7 +86,7 @@ public class Order {
                  Diopter os_cyl,
                  Angle od_angle,
                  Angle os_angle,
-                 double pd,
+                 String pd,
                  Type type,
                  String frame,
                  String comment,
@@ -181,11 +181,11 @@ public class Order {
         this.os_angle = os_angle;
     }
 
-    public double getPd() {
+    public String getPd() {
         return pd;
     }
 
-    public void setPd(double pd) {
+    public void setPd(String pd) {
         this.pd = pd;
     }
 

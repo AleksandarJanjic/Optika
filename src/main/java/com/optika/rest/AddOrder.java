@@ -45,7 +45,7 @@ public class AddOrder {
             @RequestParam(value = "os_cyl", required = false) Double os_cyl,
             @RequestParam(value = "od_angle", required = false) Integer od_angle,
             @RequestParam(value = "os_angle", required = false) Integer os_angle,
-            @RequestParam(value = "pd", required = false) Double pd,
+            @RequestParam(value = "pd", required = false) String pd,
             @RequestParam(value = "type", required = false) String type,
             @RequestParam(value = "frame", required = false) String frame,
             @RequestParam(value = "comment", required = false) String comment,
