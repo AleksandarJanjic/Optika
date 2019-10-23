@@ -29,4 +29,12 @@ public class Diopter {
     public void setDiopter(double diopter) {
         this.diopter = diopter;
     }
+
+    public Diopter(double diopter) {
+        this.diopter = diopter;
+    }
+
+    public Diopter() {
+        this.diopter = 0.0;
+    }
 }

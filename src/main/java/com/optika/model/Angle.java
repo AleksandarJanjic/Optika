@@ -28,4 +28,10 @@ public class Angle {
     public void setAngle(Integer angle) {
         this.angle = angle;
     }
+
+    public Angle(int angle) {
+        this.angle = angle;
+    }
+
+    public Angle() { }
 }

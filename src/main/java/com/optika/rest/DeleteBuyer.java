@@ -1,28 +1,28 @@
 package com.optika.rest;
 
-import com.optika.model.Contact;
-import com.optika.repo.ContactRepository;
-import com.optika.services.ContactService;
+import com.optika.model.Buyer;
+import com.optika.repo.BuyerRepository;
+import com.optika.services.BuyerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class DeleteContact {
+public class DeleteBuyer {
 
     @Autowired
-    ContactRepository repository;
+    BuyerRepository buyerRepository;
 
     @Autowired
-    ContactService contactService;
+    BuyerService buyerService;
 
-    @PostMapping("/DeleteContact")
-    public String deleteContact(
+    @PostMapping("/deleteBuyer")
+    public String deleteBuyer(
             @RequestParam("id") int id
     ) {
-        Contact contact = repository.findById(id);
-        String res = contactService.deleteContact(contact);
+        Buyer buyer = buyerRepository.findById(id);
+        String res = buyerService.deleteBuyer(buyer);
         return res;
     }
 }

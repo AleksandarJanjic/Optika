@@ -14,6 +14,7 @@ public class HibernateUtil {
     public static SessionFactory getSessionFactory() {
         if(sessionFactory == null) {
             Configuration configuration = new Configuration().configure();
+            configuration.setProperty("connection.url", System.getenv("SPRING_DATASOURCE_URL"));
             configuration.addAnnotatedClass(Buyer.class);
             configuration.addAnnotatedClass(Contact.class);
             configuration.addAnnotatedClass(Order.class);
@@ -29,11 +30,15 @@ public class HibernateUtil {
     private static Session session;
 
     public static Session getSession() {
-        if(session == null) {
-            Session session = getSessionFactory().openSession();
+        if(session == null || (!session.isOpen())) {
+            session = getSessionFactory().openSession();
             return session;
         } else {
             return session;
         }
+    }
+
+    public static void closeSession(Session session) {
+        session.close();
     }
 }

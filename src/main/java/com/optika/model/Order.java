@@ -76,6 +76,9 @@ public class Order {
     @Column(name = "deleted_flag")
     private boolean isDeleted;
 
+    @Column(name = "tip_sociva")
+    private String tipSociva;
+
     public Order(){}
 
     public Order(Buyer buyer,
@@ -87,7 +90,7 @@ public class Order {
                  Angle od_angle,
                  Angle os_angle,
                  String pd,
-                 Type type,
+                 String type,
                  String frame,
                  String comment,
                  Boolean hasAddition,
@@ -102,7 +105,7 @@ public class Order {
         this.od_angle = od_angle;
         this.os_angle = os_angle;
         this.pd = pd;
-        this.type = type;
+        this.tipSociva = type;
         this.frame = frame;
         this.comment = comment;
         this.hasAddition = hasAddition;
@@ -190,7 +193,12 @@ public class Order {
     }
 
     public Type getType() {
-        return type;
+        if(type == null) {
+            Type typeFromString = new Type(getTipSociva());
+            return typeFromString;
+        } else {
+            return type;
+        }
     }
 
     public void setType(Type type) {
@@ -235,5 +243,13 @@ public class Order {
 
     public void setIsDeleted(boolean deleted) {
         isDeleted = deleted;
+    }
+
+    public String getTipSociva() {
+        return tipSociva;
+    }
+
+    public void setTipSociva(String tipSociva) {
+        this.tipSociva = tipSociva;
     }
 }

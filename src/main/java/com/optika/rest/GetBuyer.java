@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -32,10 +33,34 @@ public class GetBuyer {
     ){
         if(lastname == null) {
             List<Buyer> result = buyerInterface.findByNameIgnoreCaseContaining(name);
-            return result;
+            List<Buyer> finalResult = new ArrayList<>();
+            for (Buyer b: result
+                 ) {
+                if(b.isDeleted() == null) {
+                    finalResult.add(b);
+                }
+                if(b.isDeleted() != null) {
+                    if(b.isDeleted() == false) {
+                        finalResult.add(b);
+                    }
+                }
+            }
+            return finalResult;
         } else {
             List<Buyer> buyers = buyerInterface.findByNameIgnoreCaseContainingAndLastnameIgnoreCaseContaining(name, lastname);
-            return buyers;
+            List<Buyer> finalResult = new ArrayList<>();
+            for (Buyer b: buyers
+            ) {
+                if(b.isDeleted() == null) {
+                    finalResult.add(b);
+                }
+                if(b.isDeleted() != null) {
+                    if(b.isDeleted() == false) {
+                        finalResult.add(b);
+                    }
+                }
+            }
+            return finalResult;
         }
     }
 

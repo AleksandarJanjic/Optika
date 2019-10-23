@@ -4,6 +4,7 @@ import com.optika.model.Buyer;
 import com.optika.model.Contact;
 import com.optika.repo.BuyerRepository;
 import com.optika.repo.ContactRepository;
+import com.optika.services.ContactService;
 import com.optika.utils.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -23,6 +24,9 @@ public class AddContact {
     @Autowired
     BuyerRepository buyerRepository;
 
+    @Autowired
+    ContactService contactService;
+
     @PostMapping
     public String addContact(
             @RequestParam("id") int id,
@@ -30,12 +34,7 @@ public class AddContact {
     ){
         Buyer buyer = buyerRepository.findById(id);
         Contact contact = new Contact(phoneNum, buyer);
-        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-        Session session = HibernateUtil.getSession();
-        session.beginTransaction();
-        session.saveOrUpdate(contact);
-        session.getTransaction().commit();
-        session.close();
+        String res = contactService.persistContact(contact);
         return String.valueOf(buyer.getId());
     }
 }

@@ -29,4 +29,10 @@ public class Type {
     public void setTip(String tip) {
         this.tip = tip;
     }
+
+    public Type(String typeName) {
+        this.tip = typeName;
+    }
+
+    public Type() {}
 }

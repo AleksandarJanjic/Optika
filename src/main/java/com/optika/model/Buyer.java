@@ -26,11 +26,14 @@ public class Buyer {
     @Column(name = "ime_kupac")
     private String name;
 
-    @Column(name = "prezime_kupac", nullable = false)
+    @Column(name = "prezime_kupac")
     private String lastname;
 
     @OneToMany(mappedBy = "buyer")
     private List<Contact> contacts = new ArrayList<>();
+
+    @Column(name = "deleted_flag")
+    private Boolean isDeleted;
 
     public Buyer(String name, String lastname) {
         this.name = name;
@@ -83,5 +86,17 @@ public class Buyer {
 
     public void setContacts(List<Contact> contacts) {
         this.contacts = contacts;
+    }
+
+    public Boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        if(deleted.equals(null)) {
+            isDeleted = false;
+        } else {
+            isDeleted = deleted;
+        }
     }
 }

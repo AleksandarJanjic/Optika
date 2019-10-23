@@ -2,10 +2,7 @@ package com.optika.rest;
 
 import com.optika.interfaces.*;
 import com.optika.model.*;
-import com.optika.model.Order;
-import com.optika.utils.HibernateUtil;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
+import com.optika.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,6 +32,9 @@ public class AddOrder {
     @Autowired
     TypeInterface typeInterface;
 
+    @Autowired
+    OrderService orderService;
+
     @PostMapping
     public String addOrder(
             @RequestParam("id") int id,
@@ -60,7 +60,6 @@ public class AddOrder {
         Diopter os_cyl_id = diopterInterface.findByDiopter(os_cyl);
         Angle od_angle_id = angleInterface.findByAngle(od_angle);
         Angle os_angle_id = angleInterface.findByAngle(os_angle);
-        Type type_id = typeInterface.findByTip(type);
         Diopter addition_id = diopterInterface.findByDiopter(addition);
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
         Date properDate = simpleDateFormat.parse(date);
@@ -74,18 +73,13 @@ public class AddOrder {
                 od_angle_id,
                 os_angle_id,
                 pd,
-                type_id,
+                type,
                 frame,
                 comment,
                 hasAddition,
                 addition_id
         );
-        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-        Session session = HibernateUtil.getSession();
-        session.beginTransaction();
-        session.saveOrUpdate(order);
-        session.getTransaction().commit();
-        session.close();
+        String res = orderService.persistOrder(order);
         System.out.println("Order added");
         return String.valueOf(buyer.getId());
     }
